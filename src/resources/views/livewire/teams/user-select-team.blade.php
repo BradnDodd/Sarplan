@@ -2,7 +2,7 @@
     @if (Auth::user()->teams()->count() > 1)
     <x-dropdown>
         <x-slot name="trigger">
-            <button class="inline-flex items-center px-3 py-2 space-x-4 text-sm font-medium leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+            <button class="inline-flex items-center px-3 py-2 space-x-4 leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
                 <div>
                     <strong>Team:</strong>
                     @if (!empty(session('user.selectedTeam')))
