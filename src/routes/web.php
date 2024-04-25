@@ -25,7 +25,6 @@ Route::view('/', 'welcome')->name('home')->middleware('auth');
 
 Route::view('/profile', 'welcome')->name('profile')->middleware('auth');
 
-
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
