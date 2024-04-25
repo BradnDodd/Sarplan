@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class TeamSeeder extends Seeder
@@ -12,6 +13,12 @@ class TeamSeeder extends Seeder
      */
     public function run(): void
     {
-        Team::factory(10)->create();
+        $teams = Team::factory(10)->create();
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $userGroupIds = fake()->randomElements($teams->modelKeys(), 2);
+            $user->teams()->attach($userGroupIds);
+        }
     }
 }

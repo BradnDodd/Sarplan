@@ -18,7 +18,7 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->text(255),
+            'name' => fake()->text(25),
             'type' => fake()->randomElement(array_column(TeamTypeEnum::cases(), 'value')),
             'active' => fake()->boolean(80),
         ];
