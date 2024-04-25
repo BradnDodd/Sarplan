@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Callout;
 use Illuminate\Http\Request;
 
-class CalloutController extends Controller
+class CalloutResourceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('callouts.index');
     }
 
     /**

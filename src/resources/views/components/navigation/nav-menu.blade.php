@@ -1,10 +1,18 @@
 <nav class="p-4 text-base font-light sm:text-2xl bg-grey-600 dark:bg-gray-900 selection:text-white">
     <div class="container flex items-center justify-between mx-auto">
         <div class="flex items-center space-x-4">
-            <x-navigation.nav-link :href="route('home')" :active="request()->routeIs('home')" >
+            <x-navigation.nav-link
+                :href="route('home')"
+                :active="request()->routeIs('home')"
+                wire:navigate
+            >
                 Home
             </x-navigation.nav-link>
-            <x-navigation.nav-link>
+            <x-navigation.nav-link
+                :href="route('callout.index')"
+                :active="request()->routeIs('callout.index')"
+                wire:navigate
+            >
                 Callouts
             </x-navigation.nav-link>
             <x-navigation.nav-link>
