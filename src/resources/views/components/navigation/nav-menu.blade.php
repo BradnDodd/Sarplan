@@ -7,11 +7,26 @@
         </div>
 
         <div class="flex items-center space-x-4">
-            <x-navigation.nav-link :href="route('profile')" :active="request()->routeIs('profile')" >
+            <div class="text-sm">
                 {{ Auth::user()->name }}
-            </x-navigation.nav-link>
-            <x-auth.logout class="inline-flex items-center px-3">
-            </x-auth.logout>
+            </div>
+            <x-dropdown class="ml-0">
+                <x-dropdown.header label="Settings">
+                    <x-dropdown.item icon="cog" label="Preferences" />
+                    <x-dropdown.item icon="user" label="My Profile" :href="route('profile')" :active="request()->routeIs('profile')" />
+                </x-dropdown.header>
+                <x-dropdown.item
+                    separator
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                >
+                    Logout
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </x-dropdown.item>
+            </x-dropdown>
         </div>
+
+
     </div>
 </nav>
