@@ -1,0 +1,40 @@
+version: "2.4"
+
+services:
+  sarplan-frontend:
+    container_name: sarplan-frontend
+    build:
+      context: ./
+      target: sarplan
+      args:
+        XDEBUG_ENABLED: "true"
+        UID: $USERID
+        GID: $GROUPID
+        UNAME: $USERNAME
+    volumes:
+      - ./src:/var/www/
+    user: 1000:1000
+    ports:
+      - 80:80
+      - 5173:5173
+    depends_on:
+      - sarplan-database-phpmyadmin
+
+  sarplan-database:
+    container_name: sarplan-database
+    image: percona
+    environment:
+      MYSQL_USER: sarplandb
+      MYSQL_PASSWORD: sarplandb
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_DATABASE: sarplan
+
+  sarplan-database-phpmyadmin:
+    container_name: sarplan-database-phpmyadmin
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=sarplan-database
+    depends_on:
+      - sarplan-database
