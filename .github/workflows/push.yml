@@ -18,7 +18,7 @@ jobs:
 
     - name: Prepare Laravel Application
       run: |
-        cp src/.env.ci .env
+        cp .env.ci .env
         php artisan key:generate
       working-directory: ./src
 
