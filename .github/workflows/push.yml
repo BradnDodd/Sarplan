@@ -14,11 +14,13 @@ jobs:
     - name: Install composer dependencies
       run: |
         composer install --no-scripts
+      working-directory: ./src
 
     - name: Prepare Laravel Application
       run: |
         cp src/.env.ci .env
         php artisan key:generate
+      working-directory: ./src
 
     - name: Run Testsuite
       run: vendor/bin/phpunit tests/
