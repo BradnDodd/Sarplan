@@ -24,3 +24,4 @@ jobs:
 
     - name: Run Testsuite
       run: vendor/bin/phpunit tests/
+      working-directory: ./src
