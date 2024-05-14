@@ -23,10 +23,8 @@ jobs:
       working-directory: ./src
 
     - name: PHPStan
-      uses: php-actions/phpstan@v3
-      with:
-        version: composer
-        configuration: ./src/phpstan.neon
+      run: vendor/bin/phpstan analyse --error-format=github
+      working-directory: ./src
 
     - name: Run Testsuite
       run: vendor/bin/phpunit tests/
