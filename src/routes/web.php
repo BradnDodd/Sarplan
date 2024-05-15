@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\CalloutController;
 use App\Http\Controllers\CalloutResourceController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Passwords\Confirm;
