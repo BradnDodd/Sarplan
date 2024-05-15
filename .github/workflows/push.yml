@@ -23,7 +23,7 @@ jobs:
       working-directory: ./src
 
     - name: PHPStan
-      run: vendor/bin/phpstan analyse --no-progress
+      run: vendor/bin/phpstan analyse --error-format=github
       working-directory: ./src
 
     - name: Run Testsuite

@@ -12,20 +12,22 @@ class EmailVerificationController extends Controller
 {
     public function __invoke(string $id, string $hash): RedirectResponse
     {
-        if (! hash_equals((string) $id, (string) Auth::user()->getKey())) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        if (! hash_equals((string) $id, (string) $user->getKey())) {
             throw new AuthorizationException();
         }
 
-        if (! hash_equals((string) $hash, sha1(Auth::user()->getEmailForVerification()))) {
+        if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
             throw new AuthorizationException();
         }
 
-        if (Auth::user()->hasVerifiedEmail()) {
+        if ($user->hasVerifiedEmail()) {
             return redirect(route('home'));
         }
 
-        if (Auth::user()->markEmailAsVerified()) {
-            event(new Verified(Auth::user()));
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
         }
 
         return redirect(route('home'));
