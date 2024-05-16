@@ -1,0 +1,31 @@
+on: push
+name: CI
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.3
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Install composer dependencies
+      run: |
+        composer install --no-scripts
+      working-directory: ./src
+
+    - name: Prepare Laravel Application
+      run: |
+        cp .env.ci .env
+        php artisan key:generate
+      working-directory: ./src
+
+    - name: PHPStan
+      run: vendor/bin/phpstan analyse --error-format=github
+      working-directory: ./src
+
+    - name: Run Testsuite
+      run: vendor/bin/phpunit tests/
+      working-directory: ./src
