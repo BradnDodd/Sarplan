@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TeamStoreRequest;
 use App\Services\TeamService;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,11 @@ class TeamApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TeamStoreRequest $request)
     {
-        //
+        $team = $this->teamService->store($request);
+
+        return response()->json($team, 201);
     }
 
     /**

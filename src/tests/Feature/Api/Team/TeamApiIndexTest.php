@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class TeamApiTest extends TestCase
+class TeamApiIndexTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -49,9 +49,9 @@ class TeamApiTest extends TestCase
             []
         );
 
-        Team::factory()->create([
+        $team = Team::factory()->create([
             'name' => 'Mountain Rescue Team',
-            'type' => TeamTypeEnum::mountainRescue,
+            'type' => TeamTypeEnum::mountainRescue(),
             'active' => true,
         ]);
 
@@ -59,11 +59,11 @@ class TeamApiTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 [
-                    'id' => 1,
+                    'id' => $team->first()->id,
                     'name' => 'Mountain Rescue Team',
-                    'type' => TeamTypeEnum::mountainRescue->value,
+                    'type' => TeamTypeEnum::mountainRescue()->value,
                     'active' => true,
-                ]
+                ],
             ]);
     }
 }
