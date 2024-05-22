@@ -29,7 +29,6 @@ class TeamApiDeleteTest extends TestCase
         $response = $this->deleteJson('/api/team/'.$teamId);
         $response->assertStatus(200);
 
-
         $team = Team::find($teamId);
         $this->assertNull($team);
     }

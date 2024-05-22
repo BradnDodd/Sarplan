@@ -2,7 +2,11 @@ version: "2.4"
 
 services:
   sarplan-frontend:
+    env_file:
+      - ./.docker/.env
     container_name: sarplan-frontend
+    environment:
+      - XDEBUG_HOST=${CONTAINER_HOST_IP}
     build:
       context: ./
       target: sarplan
@@ -13,6 +17,7 @@ services:
         UNAME: $USERNAME
     volumes:
       - ./src:/var/www/
+      - ./.docker/php.ini:/usr/local/etc/php/conf.d/php.ini
     user: 1000:1000
     ports:
       - 80:80

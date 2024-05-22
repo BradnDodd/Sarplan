@@ -33,7 +33,7 @@ class TeamService
 
     public function update(TeamUpdateRequest $request, string $id): Team
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
         $team = $this->show($id);
 
         $team->update($validated);

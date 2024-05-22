@@ -29,4 +29,11 @@ class TeamUpdateRequest extends FormRequest
             'active' => 'bool',
         ];
     }
+
+    public function enums(): array
+    {
+        return [
+            'type' => TeamTypeEnum::class,
+        ];
+    }
 }
