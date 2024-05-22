@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Team;
 
 use App\Enums\User\TeamTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;

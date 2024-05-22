@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeamStoreRequest;
+use App\Http\Requests\Team\TeamStoreRequest;
+use App\Http\Requests\Team\TeamUpdateRequest;
 use App\Services\TeamService;
-use Illuminate\Http\Request;
 
 class TeamApiController extends Controller
 {
@@ -18,9 +18,9 @@ class TeamApiController extends Controller
      */
     public function index()
     {
-        $teams = $this->teamService->index();
-
-        return response()->json($teams);
+        return response()->json(
+            $this->teamService->index()
+        );
     }
 
     /**
@@ -28,9 +28,10 @@ class TeamApiController extends Controller
      */
     public function store(TeamStoreRequest $request)
     {
-        $team = $this->teamService->store($request);
-
-        return response()->json($team, 201);
+        return response()->json(
+            $this->teamService->store($request),
+            201
+        );
     }
 
     /**
@@ -38,15 +39,19 @@ class TeamApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return response()->json(
+            $this->teamService->show($id)
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TeamUpdateRequest $request, string $id)
     {
-        //
+        return response()->json(
+            $this->teamService->update($request, $id)
+        );
     }
 
     /**
@@ -54,6 +59,8 @@ class TeamApiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return response()->json(
+            $this->teamService->delete($id)
+        );
     }
 }
