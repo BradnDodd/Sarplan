@@ -55,4 +55,4 @@ class CalloutStoreRequest extends FormRequest
 
         throw new HttpResponseException($response);
     }
-    }
+}

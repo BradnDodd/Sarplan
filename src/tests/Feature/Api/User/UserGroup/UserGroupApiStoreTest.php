@@ -3,7 +3,6 @@
 namespace Tests\Feature\Api\User\UserGroup;
 
 use App\Enums\User\UserGroup\UserGroupPrivacyEnum;
-use App\Enums\User\UserGroup\UserGroupTypeEnum;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;

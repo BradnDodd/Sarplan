@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Callout;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 
 class CalloutSeeder extends Seeder
@@ -12,6 +13,10 @@ class CalloutSeeder extends Seeder
      */
     public function run(): void
     {
-        Callout::factory(100)->create();
+        $teams = Team::all();
+
+        foreach ($teams as $team) {
+            Callout::factory(50)->create(['primary_team' => $team->id]);
+        }
     }
 }

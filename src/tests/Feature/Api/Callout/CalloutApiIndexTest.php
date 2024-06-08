@@ -20,7 +20,7 @@ class CalloutApiIndexTest extends TestCase
             []
         );
 
-        Callout::factory(5)->create(['primary_team' => 1,]);
+        Callout::factory(5)->create(['primary_team' => 1]);
         $response = $this->getJson('/api/callout');
 
         $response

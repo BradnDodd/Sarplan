@@ -22,7 +22,7 @@ class UserGroup extends Model
         'name',
         'privacy',
         'creator',
-        'description'
+        'description',
     ];
 
     public function getActivitylogOptions(): LogOptions

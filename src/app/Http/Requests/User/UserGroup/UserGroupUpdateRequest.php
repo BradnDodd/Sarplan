@@ -3,7 +3,6 @@
 namespace App\Http\Requests\User\UserGroup;
 
 use App\Enums\User\UserGroup\UserGroupPrivacyEnum;
-use App\Enums\User\UserGroup\UserGroupTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
