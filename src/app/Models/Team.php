@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\User\TeamTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -40,6 +41,13 @@ class Team extends Model
     {
         return [
             'active' => 'boolean',
+        ];
+    }
+
+    public function enums(): array
+    {
+        return [
+            'type' => TeamTypeEnum::class,
         ];
     }
 }
