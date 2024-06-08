@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\User\UserGroupPrivacyEnum;
+use App\Enums\User\UserGroup\UserGroupPrivacyEnum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

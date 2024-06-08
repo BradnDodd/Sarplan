@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\User\UserContactMethodTypeEnum;
+use App\Enums\User\UserContactMethod\UserContactMethodTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;

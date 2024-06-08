@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\User\UserContactMethodTypeEnum;
+use App\Enums\User\UserContactMethod\UserContactMethodTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
