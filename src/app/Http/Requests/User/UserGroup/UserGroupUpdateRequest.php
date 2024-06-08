@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Callout;
+namespace App\Http\Requests\User\UserGroup;
 
-use App\Enums\Callout\CalloutStatusEnum;
+use App\Enums\User\UserGroup\UserGroupPrivacyEnum;
+use App\Enums\User\UserGroup\UserGroupTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
-class CalloutUpdateRequest extends FormRequest
+class UserGroupUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +25,10 @@ class CalloutUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'primary_team' => 'required|int',
-            'start_time' => 'required|date',
-            'end_time' => 'date|nullable',
-            'status' => ['required', new EnumRule(CalloutStatusEnum::class)],
-            'active' => 'bool',
+            'name' => 'required|string:max:255',
+            'privacy' => ['required', new EnumRule(UserGroupPrivacyEnum::class)],
+            'creator' => 'required|int',
+            'description' => 'string',
         ];
     }
 
@@ -38,7 +38,7 @@ class CalloutUpdateRequest extends FormRequest
     public function enums(): array
     {
         return [
-            'status' => CalloutStatusEnum::class,
+            'privacy' => UserGroupPrivacyEnum::class,
         ];
     }
 }

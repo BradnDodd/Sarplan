@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Callout;
 
 use App\Enums\Callout\CalloutStatusEnum;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class CalloutStoreRequest extends FormRequest
@@ -25,8 +27,8 @@ class CalloutStoreRequest extends FormRequest
     {
         return [
             'primary_team' => 'required|int',
-            'start_date' => 'required|datetime',
-            'end_date' => 'datetime',
+            'start_time' => 'required|date',
+            'end_time' => 'date|nullable',
             'status' => ['required', new EnumRule(CalloutStatusEnum::class)],
             'active' => 'bool',
         ];
@@ -41,4 +43,16 @@ class CalloutStoreRequest extends FormRequest
             'status' => CalloutStatusEnum::class,
         ];
     }
-}
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+
+        $response = response()->json([
+            'message' => 'Invalid data send',
+            'details' => $errors->messages(),
+        ], 422);
+
+        throw new HttpResponseException($response);
+    }
+    }

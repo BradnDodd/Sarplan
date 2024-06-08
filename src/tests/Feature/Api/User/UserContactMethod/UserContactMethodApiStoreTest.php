@@ -26,7 +26,7 @@ class UserContactMethodApiStoreTest extends TestCase
             'primary_method_for_type' => true,
         ];
 
-        $response = $this->postJson('/api/callout', $requestData);
+        $response = $this->postJson('/api/user/contactMethod', $requestData);
         $response->assertStatus(201)
             ->assertJsonStructure([
                 'id',

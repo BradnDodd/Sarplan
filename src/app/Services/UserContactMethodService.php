@@ -20,14 +20,14 @@ class UserContactMethodService
     {
         $validated = $request->validated();
 
-        $callout = UserContactMethod::create([
+        $userContactMethod = UserContactMethod::create([
             'user_id' => $validated['user_id'],
             'contact' => $validated['contact'],
             'type' => $validated['type'],
             'primary_method_for_type' => $validated['primary_method_for_type'],
         ]);
 
-        return $callout;
+        return $userContactMethod;
     }
 
     public function show(string $id): UserContactMethod
@@ -38,17 +38,17 @@ class UserContactMethodService
     public function update(UserContactMethodUpdateRequest $request, string $id): UserContactMethod
     {
         $validated = $request->validated();
-        $callout = $this->show($id);
+        $userContactMethod = $this->show($id);
 
-        $callout->update($validated);
+        $userContactMethod->update($validated);
 
-        return $callout;
+        return $userContactMethod;
     }
 
     public function delete(string $id): void
     {
-        $callout = UserContactMethod::findOrFail($id);
+        $userContactMethod = UserContactMethod::findOrFail($id);
 
-        $callout->delete();
+        $userContactMethod->delete();
     }
 }

@@ -19,7 +19,7 @@ class UserContactMethodFactory extends Factory
     public function definition(): array
     {
         $userIds = User::all('id');
-        $contactMethod = fake()->randomElement(array_column(UserContactMethodTypeEnum::cases(), 'value'));
+        $contactMethod = fake()->randomElement(UserContactMethodTypeEnum::cases());
         $contact = match ($contactMethod) {
             UserContactMethodTypeEnum::telephone() => fake()->phoneNumber(),
             UserContactMethodTypeEnum::email() => fake()->email(),

@@ -13,8 +13,8 @@ class Callout extends Model
 
     protected $fillable = [
         'primary_team',
-        'start_date',
-        'end_date',
+        'start_time',
+        'end_time',
         'status',
     ];
 

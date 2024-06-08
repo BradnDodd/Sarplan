@@ -23,8 +23,8 @@ class CalloutService
 
         $callout = Callout::create([
             'primary_team' => $validated['primary_team'],
-            'start_date' => $validated['start_date'],
-            'end_date' => $validated['end_date'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
             'status' => $validated['status'] ??= CalloutStatusEnum::open(),
         ]);
 

@@ -20,7 +20,7 @@ class CalloutFactory extends Factory
     {
         $starTime = fake()->dateTimeBetween('-6 months');
         $endTime = fake()->boolean() ? fake()->dateTimeInInterval($starTime, '+10 hours') : null;
-        $status = $endTime !== null ? CalloutStatusEnum::closed : CalloutStatusEnum::open;
+        $status = $endTime !== null ? CalloutStatusEnum::closed() : CalloutStatusEnum::open();
         $teams = Team::all('id');
 
         return [
