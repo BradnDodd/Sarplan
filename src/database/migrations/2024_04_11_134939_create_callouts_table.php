@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Callout\CalloutTypeEnum;
+use App\Enums\Callout\CalloutStatusEnum;
 use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Team::class, 'primary_team');
             $table->timestamp('start_time')->useCurrent();
             $table->timestamp('end_time')->nullable();
-            $table->enum('status', array_column(CalloutTypeEnum::cases(), 'value'));
+            $table->enum('status', array_column(CalloutStatusEnum::cases(), 'value'));
             $table->timestamps();
         });
     }

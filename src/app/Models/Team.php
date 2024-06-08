@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\User\TeamTypeEnum;
+use App\Enums\Team\TeamTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

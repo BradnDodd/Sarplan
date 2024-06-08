@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Api\Team;
 
-use App\Enums\User\TeamTypeEnum;
+use App\Enums\Team\TeamTypeEnum;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

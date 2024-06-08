@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\User\TeamTypeEnum;
+use App\Enums\Team\TeamTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

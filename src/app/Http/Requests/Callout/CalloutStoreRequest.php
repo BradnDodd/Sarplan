@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Team;
+namespace App\Http\Requests\Callout;
 
-use App\Enums\Team\TeamTypeEnum;
+use App\Enums\Callout\CalloutStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
-class TeamStoreRequest extends FormRequest
+class CalloutStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class TeamStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255|unique:users,name',
-            'type' => ['required', new EnumRule(TeamTypeEnum::class)],
+            'primary_team' => 'required|int',
+            'start_date' => 'required|datetime',
+            'end_date' => 'datetime',
+            'status' => ['required', new EnumRule(CalloutStatusEnum::class)],
             'active' => 'bool',
         ];
     }
@@ -33,7 +35,7 @@ class TeamStoreRequest extends FormRequest
     public function enums(): array
     {
         return [
-            'type' => TeamTypeEnum::class,
+            'status' => CalloutStatusEnum::class,
         ];
     }
 }

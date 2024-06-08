@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\User\TeamTypeEnum;
+use App\Enums\Team\TeamTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

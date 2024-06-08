@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\Callout\CalloutTypeEnum;
+use App\Enums\Callout\CalloutStatusEnum;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +20,7 @@ class CalloutFactory extends Factory
     {
         $starTime = fake()->dateTimeBetween('-6 months');
         $endTime = fake()->boolean() ? fake()->dateTimeInInterval($starTime, '+10 hours') : null;
-        $status = $endTime !== null ? CalloutTypeEnum::closed : CalloutTypeEnum::open;
+        $status = $endTime !== null ? CalloutStatusEnum::closed : CalloutStatusEnum::open;
         $teams = Team::all('id');
 
         return [

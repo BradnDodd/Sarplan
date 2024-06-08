@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Team;
 
-use App\Enums\User\TeamTypeEnum;
+use App\Enums\Team\TeamTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
