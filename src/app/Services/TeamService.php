@@ -8,6 +8,9 @@ use App\Models\Team;
 
 class TeamService
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Team>
+     */
     public function index()
     {
         return Team::all();

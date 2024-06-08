@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api\User\UserContactMethod;
 
-use App\Models\UserContactMethod;
 use App\Models\User;
+use App\Models\UserContactMethod;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;

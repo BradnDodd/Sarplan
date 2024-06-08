@@ -20,10 +20,10 @@ class UserContactMethodFactory extends Factory
     {
         $userIds = User::all('id');
         $contactMethod = fake()->randomElement(array_column(UserContactMethodTypeEnum::cases(), 'value'));
-        $contact = match($contactMethod) {
+        $contact = match ($contactMethod) {
             UserContactMethodTypeEnum::telephone() => fake()->phoneNumber(),
             UserContactMethodTypeEnum::email() => fake()->email(),
-            default => throw new \Exception('Unsupported contact method type: '. $contactMethod)
+            default => throw new \Exception('Unsupported contact method type: '.$contactMethod)
         };
 
         return [

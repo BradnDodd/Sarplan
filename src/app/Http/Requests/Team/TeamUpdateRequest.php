@@ -30,6 +30,9 @@ class TeamUpdateRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array<string, class-string>
+     */
     public function enums(): array
     {
         return [

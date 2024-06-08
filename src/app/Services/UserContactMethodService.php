@@ -8,6 +8,9 @@ use App\Models\UserContactMethod;
 
 class UserContactMethodService
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, UserContactMethod>
+     */
     public function index()
     {
         return UserContactMethod::all();

@@ -9,6 +9,9 @@ use App\Models\Callout;
 
 class CalloutService
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Callout>
+     */
     public function index()
     {
         return Callout::all();

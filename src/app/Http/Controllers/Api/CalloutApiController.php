@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Callout\CalloutStoreRequest;
 use App\Http\Requests\Callout\CalloutUpdateRequest;
 use App\Services\CalloutService;
+use Illuminate\Http\JsonResponse;
 
 class CalloutApiController extends Controller
 {
@@ -16,7 +17,7 @@ class CalloutApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(
             $this->calloutService->index()
@@ -26,7 +27,7 @@ class CalloutApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CalloutStoreRequest $request)
+    public function store(CalloutStoreRequest $request): JsonResponse
     {
         return response()->json(
             $this->calloutService->store($request),
@@ -37,7 +38,7 @@ class CalloutApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
         return response()->json(
             $this->calloutService->show($id)
@@ -47,7 +48,7 @@ class CalloutApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CalloutUpdateRequest $request, string $id)
+    public function update(CalloutUpdateRequest $request, string $id): JsonResponse
     {
         return response()->json(
             $this->calloutService->update($request, $id)
@@ -57,10 +58,10 @@ class CalloutApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        return response()->json(
-            $this->calloutService->delete($id)
-        );
+        $this->calloutService->delete($id);
+
+        return response()->json([]);
     }
 }

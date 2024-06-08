@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\TeamStoreRequest;
 use App\Http\Requests\Team\TeamUpdateRequest;
 use App\Services\TeamService;
+use Illuminate\Http\JsonResponse;
 
 class TeamApiController extends Controller
 {
@@ -16,7 +17,7 @@ class TeamApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(
             $this->teamService->index()
@@ -26,7 +27,7 @@ class TeamApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TeamStoreRequest $request)
+    public function store(TeamStoreRequest $request): JsonResponse
     {
         return response()->json(
             $this->teamService->store($request),
@@ -37,7 +38,7 @@ class TeamApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
         return response()->json(
             $this->teamService->show($id)
@@ -47,7 +48,7 @@ class TeamApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TeamUpdateRequest $request, string $id)
+    public function update(TeamUpdateRequest $request, string $id): JsonResponse
     {
         return response()->json(
             $this->teamService->update($request, $id)
@@ -57,10 +58,10 @@ class TeamApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        return response()->json(
-            $this->teamService->delete($id)
-        );
+        $this->teamService->delete($id);
+
+        return response()->json([]);
     }
 }
