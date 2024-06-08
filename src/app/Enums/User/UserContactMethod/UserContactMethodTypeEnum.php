@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\User;
+namespace App\Enums\User\UserContactMethod;
 
 /**
  * @method static self telephone()
