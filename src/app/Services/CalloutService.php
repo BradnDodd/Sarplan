@@ -6,6 +6,7 @@ use App\Enums\Callout\CalloutStatusEnum;
 use App\Http\Requests\Callout\CalloutStoreRequest;
 use App\Http\Requests\Callout\CalloutUpdateRequest;
 use App\Models\Callout;
+use Illuminate\Support\Facades\Gate;
 
 class CalloutService
 {
@@ -19,6 +20,8 @@ class CalloutService
 
     public function store(CalloutStoreRequest $request): Callout
     {
+        Gate::authorize('create', Callout::class);
+
         $validated = $request->validated();
 
         $callout = Callout::create([
@@ -33,13 +36,18 @@ class CalloutService
 
     public function show(string $id): Callout
     {
-        return Callout::findOrFail($id);
+        $callout = Callout::findOrFail($id);
+        Gate::authorize('view', $callout);
+
+        return $callout;
     }
 
     public function update(CalloutUpdateRequest $request, string $id): Callout
     {
         $validated = $request->validated();
         $callout = $this->show($id);
+
+        Gate::authorize('update', $callout);
 
         $callout->update($validated);
 
@@ -49,6 +57,8 @@ class CalloutService
     public function delete(string $id): void
     {
         $callout = Callout::findOrFail($id);
+
+        Gate::authorize('delete', $callout);
 
         $callout->delete();
     }

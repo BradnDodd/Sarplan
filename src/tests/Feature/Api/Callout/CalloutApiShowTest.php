@@ -4,6 +4,7 @@ namespace Tests\Feature\Api\Callout;
 
 use App\Enums\Callout\CalloutStatusEnum;
 use App\Models\Callout;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
@@ -15,13 +16,17 @@ class CalloutApiShowTest extends TestCase
 
     public function testCalloutShowWithSingleRecordExpectedDataReturned(): void
     {
+        $user = User::factory()->create();
+        $team = Team::factory()->create();
+        $user->assignRole('team member');
+        $user->teams()->attach($team->id);
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
         $callout = Callout::factory()->create([
-            'primary_team' => 1,
+            'primary_team' => $team->id,
             'start_time' => '2024-01-01 17:00:00',
             'end_time' => null,
             'status' => CalloutStatusEnum::open(),
