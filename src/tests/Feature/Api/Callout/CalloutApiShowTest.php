@@ -37,7 +37,7 @@ class CalloutApiShowTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'id' => $callout->first()->id,
-                'primary_team' => 1,
+                'primary_team' => $team->id,
                 'start_time' => '2024-01-01 17:00:00',
                 'end_time' => null,
                 'status' => CalloutStatusEnum::open(),
