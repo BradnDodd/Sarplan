@@ -15,8 +15,11 @@ class TeamApiUpdateTest extends TestCase
 
     public function testTeamUpdateWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -26,6 +29,7 @@ class TeamApiUpdateTest extends TestCase
             'active' => true,
         ]);
 
+        $user->teams()->attach($team->id);
         $requestData = [
             'id' => $team->first()->id,
             'name' => 'Awesome Mountain Rescue Team',

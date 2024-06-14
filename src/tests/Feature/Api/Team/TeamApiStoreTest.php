@@ -14,8 +14,11 @@ class TeamApiStoreTest extends TestCase
 
     public function testTeamStoreWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin-super');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 

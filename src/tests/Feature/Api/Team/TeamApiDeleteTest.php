@@ -15,8 +15,11 @@ class TeamApiDeleteTest extends TestCase
 
     public function testTeamDeleteWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin-super');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -25,11 +28,36 @@ class TeamApiDeleteTest extends TestCase
             'type' => TeamTypeEnum::mountainRescue(),
             'active' => true,
         ]);
-        $teamId = $team->first()->id;
-        $response = $this->deleteJson('/api/team/'.$teamId);
+        $user->teams()->attach($team->id);
+
+        $response = $this->deleteJson('/api/team/'.$team->id);
         $response->assertStatus(200);
 
-        $team = Team::find($teamId);
+        $team = Team::find($team->id);
         $this->assertNull($team);
+    }
+
+    public function testTeamDeleteWithoutPermissions(): void
+    {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
+        Sanctum::actingAs(
+            $user,
+            []
+        );
+
+        $team = Team::factory()->create([
+            'name' => 'Mountain Rescue Team',
+            'type' => TeamTypeEnum::mountainRescue(),
+            'active' => true,
+        ]);
+        $user->teams()->attach($team->id);
+
+        $response = $this->deleteJson('/api/team/'.$team->id);
+        $response->assertStatus(403);
+
+        $team = Team::find($team->id);
+        $this->assertNotNull($team);
     }
 }

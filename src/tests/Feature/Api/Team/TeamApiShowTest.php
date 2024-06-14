@@ -15,16 +15,21 @@ class TeamApiShowTest extends TestCase
 
     public function testTeamShowWithSingleRecordExpectedDataReturned(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
+
 
         $team = Team::factory()->create([
             'name' => 'Mountain Rescue Team',
             'type' => TeamTypeEnum::mountainRescue(),
             'active' => true,
         ]);
+        $user->teams()->attach($team->id);
 
         $teamId = $team->first()->id;
         $response = $this->getJson('/api/team/'.$teamId);
