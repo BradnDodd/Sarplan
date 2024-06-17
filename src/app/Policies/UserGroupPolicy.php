@@ -2,64 +2,106 @@
 
 namespace App\Policies;
 
+use App\Models\Team;
 use App\Models\User;
 use App\Models\UserGroup;
+use Illuminate\Auth\Access\Response;
 
 class UserGroupPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user): Response
     {
-        //
+        if (! $user->can('user-group-view-team')) {
+            return Response::deny('You cannot view user groups');
+        }
+
+        return Response::allow();
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, UserGroup $userGroup): bool
+    public function view(User $user, UserGroup $userGroup): Response
     {
-        //
+        // Team isn't their team but they have view all permission
+        if (
+            ! $user->groups()->where('user_groups.id', $userGroup->id)->exists()
+            && $user->can('user-group-view-any')
+        ) {
+            return Response::allow();
+        }
+
+        // Callout is their team and they have view permission
+        if (
+            $user->groups()->where('user_groups.id', $userGroup->id)->exists()
+            && $user->can('user-group-view-team')
+        ) {
+            return Response::allow();
+        }
+
+        return Response::deny('You cannot view this user group');
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        //
+        if (! $user->can('user-group-create')) {
+            return Response::deny('You cannot create a user group');
+        }
+
+        return Response::allow();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, UserGroup $userGroup): bool
+    public function update(User $user, UserGroup $userGroup): Response
     {
-        //
+        if (! $user->can('user-group-update')) {
+            return Response::deny('You cannot update a user group');
+        }
+
+        if (! $user->groups()->where('user_groups.id', $userGroup->id)->exists()) {
+            return Response::deny('You cannot update a user group belonging to another team');
+        }
+
+        return Response::allow();
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, UserGroup $userGroup): bool
+    public function delete(User $user, UserGroup $userGroup): Response
     {
-        //
+        if (! $user->can('user-group-delete')) {
+            return Response::deny('You cannot delete a user group');
+        }
+
+        if (! $user->groups()->where('user_groups.id', $userGroup->id)->exists()) {
+            return Response::deny('You cannot delete another teams user group');
+        }
+
+        return Response::allow();
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, UserGroup $userGroup): bool
+    public function restore(User $user, Team $userGroup): Response
     {
-        //
+        return Response::deny('This feature is not available');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, UserGroup $userGroup): bool
+    public function forceDelete(User $user, Team $userGroup): Response
     {
-        //
+        return Response::deny('This feature is not available');
     }
 }

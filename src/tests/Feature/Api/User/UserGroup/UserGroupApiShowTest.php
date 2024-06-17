@@ -15,8 +15,11 @@ class UserGroupApiShowTest extends TestCase
 
     public function testUserGroupShowWithSingleRecordExpectedDataReturned(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 

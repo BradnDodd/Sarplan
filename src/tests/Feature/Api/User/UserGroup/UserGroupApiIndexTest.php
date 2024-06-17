@@ -15,8 +15,11 @@ class UserGroupApiIndexTest extends TestCase
 
     public function testUserGroupListWithRecords(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -30,8 +33,11 @@ class UserGroupApiIndexTest extends TestCase
 
     public function testUserGroupListWithoutRecords(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -44,8 +50,11 @@ class UserGroupApiIndexTest extends TestCase
 
     public function testUserGroupListWithSingleRecordExpectedDataReturned(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 

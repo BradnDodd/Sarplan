@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class UserGroupApiController extends Controller
 {
-    public function __construct(private UserGroupService $userContactMethodService)
+    public function __construct(private UserGroupService $userGroupService)
     {
     }
 
@@ -20,7 +20,7 @@ class UserGroupApiController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            $this->userContactMethodService->index()
+            $this->userGroupService->index()
         );
     }
 
@@ -30,7 +30,7 @@ class UserGroupApiController extends Controller
     public function store(UserGroupStoreRequest $request): JsonResponse
     {
         return response()->json(
-            $this->userContactMethodService->store($request),
+            $this->userGroupService->store($request),
             201
         );
     }
@@ -41,7 +41,7 @@ class UserGroupApiController extends Controller
     public function show(string $id): JsonResponse
     {
         return response()->json(
-            $this->userContactMethodService->show($id)
+            $this->userGroupService->show($id)
         );
     }
 
@@ -51,7 +51,7 @@ class UserGroupApiController extends Controller
     public function update(UserGroupUpdateRequest $request, string $id): JsonResponse
     {
         return response()->json(
-            $this->userContactMethodService->update($request, $id)
+            $this->userGroupService->update($request, $id)
         );
     }
 
@@ -60,7 +60,7 @@ class UserGroupApiController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $this->userContactMethodService->delete($id);
+        $this->userGroupService->delete($id);
 
         return response()->json([]);
     }

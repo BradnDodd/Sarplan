@@ -15,8 +15,11 @@ class UserGroupApiUpdateTest extends TestCase
 
     public function testUserGroupUpdateWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -33,6 +36,7 @@ class UserGroupApiUpdateTest extends TestCase
             'creator' => 1,
             'description' => 'A group for only the best people',
         ];
+        $user->groups()->attach($userGroup->id);
 
         $response = $this->patchJson('/api/user/userGroup/'.$userGroup->first()->id, $requestData);
         $response->assertStatus(200)

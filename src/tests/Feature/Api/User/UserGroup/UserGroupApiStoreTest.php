@@ -14,8 +14,11 @@ class UserGroupApiStoreTest extends TestCase
 
     public function testUserGroupStoreWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team leader');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
