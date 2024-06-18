@@ -15,8 +15,11 @@ class UserContactMethodApiIndexTest extends TestCase
 
     public function testUserContactMethodListWithRecords(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -30,8 +33,11 @@ class UserContactMethodApiIndexTest extends TestCase
 
     public function testUserContactMethodListWithoutRecords(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
@@ -44,13 +50,16 @@ class UserContactMethodApiIndexTest extends TestCase
 
     public function testUserContactMethodListWithSingleRecordExpectedDataReturned(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
         $userContactMethod = UserContactMethod::factory()->create([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'contact' => 'test@test.com',
             'type' => UserContactMethodTypeEnum::email(),
             'primary_method_for_type' => true,
@@ -61,7 +70,7 @@ class UserContactMethodApiIndexTest extends TestCase
             ->assertJson([
                 [
                     'id' => $userContactMethod->first()->id,
-                    'user_id' => 1,
+                    'user_id' => $user->id,
                     'contact' => 'test@test.com',
                     'type' => UserContactMethodTypeEnum::email(),
                     'primary_method_for_type' => true,

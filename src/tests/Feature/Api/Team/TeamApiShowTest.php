@@ -23,7 +23,6 @@ class TeamApiShowTest extends TestCase
             []
         );
 
-
         $team = Team::factory()->create([
             'name' => 'Mountain Rescue Team',
             'type' => TeamTypeEnum::mountainRescue(),

@@ -55,6 +55,7 @@ class UserGroupApiDeleteTest extends TestCase
         $userGroup = UserGroup::find($userGroupId);
         $this->assertNotNull($userGroup);
     }
+
     public function testUserGroupDeleteForDifferentGroup(): void
     {
         $user = User::factory()->create();

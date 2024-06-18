@@ -9,7 +9,7 @@ services:
       - XDEBUG_HOST=${CONTAINER_HOST_IP}
     build:
       context: ./
-      target: sarplan
+      target: sarplan_tooling
       args:
         XDEBUG_ENABLED: "true"
         UID: $USERID

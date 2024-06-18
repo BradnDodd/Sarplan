@@ -14,8 +14,11 @@ class UserContactMethodApiDeleteTest extends TestCase
 
     public function testUserContactMethodDeleteWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 

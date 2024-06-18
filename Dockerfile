@@ -63,3 +63,4 @@ USER root
 RUN pecl install ast pcov && docker-php-ext-enable ast pcov
 
 USER $UID
+RUN echo "alias pa='php artisan'" >> ~/.bash_aliases

@@ -14,13 +14,16 @@ class UserContactMethodApiStoreTest extends TestCase
 
     public function testUserContactMethodStoreWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
         $requestData = [
-            'user_id' => 1,
+            'user_id' => $user->id,
             'contact' => 'test@test.com',
             'type' => UserContactMethodTypeEnum::email(),
             'primary_method_for_type' => true,

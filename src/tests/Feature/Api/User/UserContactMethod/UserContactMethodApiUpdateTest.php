@@ -15,20 +15,23 @@ class UserContactMethodApiUpdateTest extends TestCase
 
     public function testUserContactMethodUpdateWithValidData(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
         $userContactMethod = UserContactMethod::factory()->create([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'contact' => 'test@test.com',
             'type' => UserContactMethodTypeEnum::email(),
             'primary_method_for_type' => true,
         ]);
 
         $requestData = [
-            'user_id' => 1,
+            'user_id' => $user->id,
             'contact' => 'test@test.com',
             'type' => UserContactMethodTypeEnum::email(),
             'primary_method_for_type' => false,

@@ -15,13 +15,16 @@ class UserContactMethodApiShowTest extends TestCase
 
     public function testUserContactMethodShowWithSingleRecordExpectedDataReturned(): void
     {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
         Sanctum::actingAs(
-            User::factory()->create(),
+            $user,
             []
         );
 
         $userContactMethod = UserContactMethod::factory()->create([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'contact' => 'test@test.com',
             'type' => UserContactMethodTypeEnum::email(),
             'primary_method_for_type' => true,
@@ -32,7 +35,7 @@ class UserContactMethodApiShowTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'id' => $userContactMethod->first()->id,
-                'user_id' => 1,
+                'user_id' => $user->id,
                 'contact' => 'test@test.com',
                 'type' => UserContactMethodTypeEnum::email(),
                 'primary_method_for_type' => true,
