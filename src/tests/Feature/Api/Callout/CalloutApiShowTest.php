@@ -43,4 +43,33 @@ class CalloutApiShowTest extends TestCase
                 'status' => CalloutStatusEnum::open(),
             ]);
     }
+    public function testCalloutShowWithSingleRecordTeamLeaderViewOtherTeams(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create();
+        $user->assignRole('team leader');
+        $user->teams()->attach($team->id);
+        Sanctum::actingAs(
+            $user,
+            []
+        );
+
+        $callout = Callout::factory()->create([
+            'primary_team' => ($team->id + 1),
+            'start_time' => '2024-01-01 17:00:00',
+            'end_time' => null,
+            'status' => CalloutStatusEnum::open(),
+        ]);
+
+        $calloutId = $callout->first()->id;
+        $response = $this->getJson('/api/callout/'.$calloutId);
+        $response->assertStatus(200)
+            ->assertJson([
+                'id' => $callout->first()->id,
+                'primary_team' => ($team->id + 1),
+                'start_time' => '2024-01-01 17:00:00',
+                'end_time' => null,
+                'status' => CalloutStatusEnum::open(),
+            ]);
+    }
 }

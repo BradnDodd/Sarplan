@@ -10,18 +10,6 @@ use Illuminate\Auth\Access\Response;
 class UserGroupPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): Response
-    {
-        if (! $user->can('user-group-view-team')) {
-            return Response::deny('You cannot view user groups');
-        }
-
-        return Response::allow();
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, UserGroup $userGroup): Response
@@ -87,21 +75,5 @@ class UserGroupPolicy
         }
 
         return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Team $userGroup): Response
-    {
-        return Response::deny('This feature is not available');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Team $userGroup): Response
-    {
-        return Response::deny('This feature is not available');
     }
 }

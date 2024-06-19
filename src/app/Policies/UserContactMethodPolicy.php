@@ -9,18 +9,6 @@ use Illuminate\Auth\Access\Response;
 class UserContactMethodPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): Response
-    {
-        if (! $user->can('user-contact-method-view-user')) {
-            return Response::deny('You cannot view user contact methods');
-        }
-
-        return Response::allow();
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, UserContactMethod $userContactMethod): Response
@@ -86,21 +74,5 @@ class UserContactMethodPolicy
         }
 
         return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, UserContactMethod $userContactMethod): Response
-    {
-        return Response::deny('This feature is not available');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, UserContactMethod $userContactMethod): Response
-    {
-        return Response::deny('This feature is not available');
     }
 }

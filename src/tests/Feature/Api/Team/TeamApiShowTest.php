@@ -39,6 +39,48 @@ class TeamApiShowTest extends TestCase
                 'type' => TeamTypeEnum::mountainRescue()->value,
                 'active' => true,
             ],
-            );
+        );
+    }
+
+    public function testTeamShowWithSingleRecordNoPermissions(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs(
+            $user,
+            []
+        );
+
+        $team = Team::factory()->create([
+            'name' => 'Mountain Rescue Team',
+            'type' => TeamTypeEnum::mountainRescue(),
+            'active' => true,
+        ]);
+        $user->teams()->attach($team->id);
+
+        $teamId = $team->first()->id;
+        $response = $this->getJson('/api/team/'.$teamId);
+        $response->assertStatus(403);
+    }
+
+    public function testTeamShowWithSingleRecordOtherTeam(): void
+    {
+        $user = User::factory()->create();
+        $user->assignRole('team member');
+
+        Sanctum::actingAs(
+            $user,
+            []
+        );
+
+        $team = Team::factory()->create([
+            'name' => 'Mountain Rescue Team',
+            'type' => TeamTypeEnum::mountainRescue(),
+            'active' => true,
+        ]);
+
+        $teamId = $team->first()->id;
+        $response = $this->getJson('/api/team/'.$teamId);
+        $response->assertStatus(403);
     }
 }

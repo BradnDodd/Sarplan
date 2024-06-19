@@ -9,18 +9,6 @@ use Illuminate\Auth\Access\Response;
 class CalloutPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): Response
-    {
-        if (! $user->can('callout-view-team')) {
-            return Response::deny('You cannot view callouts');
-        }
-
-        return Response::allow();
-    }
-
-    /**
      * Determine whether the user can view models.
      *
      * User must either have the callout-view-any permission
@@ -92,21 +80,5 @@ class CalloutPolicy
         }
 
         return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Callout $callout): Response
-    {
-        return Response::deny('This feature is not available');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Callout $callout): Response
-    {
-        return Response::deny('This feature is not available');
     }
 }

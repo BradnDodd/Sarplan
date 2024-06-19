@@ -9,18 +9,6 @@ use Illuminate\Auth\Access\Response;
 class TeamPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): Response
-    {
-        if (! $user->can('team-view-team')) {
-            return Response::deny('You cannot view teams');
-        }
-
-        return Response::allow();
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Team $team): Response
@@ -86,18 +74,5 @@ class TeamPolicy
         }
 
         return Response::allow();
-    }
-
-    public function restore(User $user, Team $team): Response
-    {
-        return Response::deny('This feature is not available');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Team $team): Response
-    {
-        return Response::deny('This feature is not available');
     }
 }
