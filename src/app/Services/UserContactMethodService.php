@@ -35,7 +35,7 @@ class UserContactMethodService
 
     public function show(string $id): UserContactMethod
     {
-        $userContactMethod = UserContactMethod::find($id);
+        $userContactMethod = UserContactMethod::findOrFail($id);
 
         Gate::authorize('view', $userContactMethod);
 
